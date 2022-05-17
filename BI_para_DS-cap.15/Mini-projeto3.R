@@ -193,3 +193,26 @@ saveRDS(modelo_v2,file = "modelo/modelo_v2.rds")
 #Carregando modelo
 modelo1 <- readRDS("modelo/modelo_v1.rds")
 modelo2 <- readRDS("modelo/modelo_v2.rds")
+# -=-=-=-=-=-==-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=
+
+
+########################PREVISÕES COM NOVOS DADOS
+# -=-=-=-=-=-==-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=
+#dados dos clientes
+PAY_0 <- c(0,0,0)
+BILL_AMT1 <- c(350,420,280)
+BILL_AMT2 <- c(500,970,365)
+LIMIT_BAL <- c(12000,5000,28000)
+BILL_AMT5 <- c(800,450,650)
+BILL_AMT3 <- c(1100,800,2700)
+PAY_AMT1 <- c(1100,1000,1200)
+BILL_AMT4 <- c(2800,2000,1500)
+BILL_AMT6 <- c(1400,1000,750)
+#concatenando em um dataframe
+novos_clientes <- data.frame(PAY_0,BILL_AMT1,BILL_AMT2,LIMIT_BAL,
+                             BILL_AMT5,BILL_AMT3,PAY_AMT1,BILL_AMT4,
+                             BILL_AMT6)
+novos_clientes$PAY_0 <- factor(novos_clientes$PAY_0, levels = levels(dados_treino$PAY_0))
+#previsões
+previsoes_novos_clientes <- predict(modelo_v2,novos_clientes)
+previsoes_novos_clientes
